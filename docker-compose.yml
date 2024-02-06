@@ -1,0 +1,19 @@
+services:
+  redis:
+    container_name: redis
+    image: redis:latest
+    # volumes:
+    #   - ./persistence/redis/:/var/lib/redis
+    #   - ./persistence/redis-config/:/usr/local/etc/redis/redis.conf
+    ports:
+      - 6379:6379
+    environment:
+      - REDIS_PASSWORD=rdpwd
+      - REDIS_PORT=6379
+      - REDIS_DATABASES=16
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
